@@ -6,3 +6,4 @@ class Category(BaseModel):
     featured_deals:list = Field(...,alias="FeaturedDeals")
  
     
+ 

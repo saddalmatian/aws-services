@@ -8,7 +8,7 @@ from services import category as category_service
 router = APIRouter(
     prefix="/categories",
     tags=["Category"]
-)
+) 
 
 @router.get("/{category_name}",response_model=category_schema.CategoryResp)
 def get_category(category_name:str):

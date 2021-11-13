@@ -9,7 +9,7 @@ def get_category(category_name):
         }
     )
     return response["Item"]
-
+ 
 def create_category(category:CategoryIn):
     response = table.put_item(
         Item={

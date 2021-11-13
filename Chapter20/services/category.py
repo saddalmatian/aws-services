@@ -15,4 +15,4 @@ def add_category_watch(user_id:str,category_name:str):
     return category_db.add_category_watch(user_id,category_name)
 
 def add_featured_deals(deal_list:list,category_name:str):
-    return category_db.add_featured_deals(deal_list,category_name)
+    return category_db.add_featured_deals(deal_list,category_name) 

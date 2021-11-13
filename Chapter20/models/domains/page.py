@@ -1,12 +1,12 @@
-from typing import Dict, List
+from typing import List
 from pydantic import BaseModel,Field
 
 
 
 class PageDeals(BaseModel):
-    deal_id:str = Field(...,alias="DealID"),
+    deal_id:str = Field(...,alias="DealID")
     link:str = Field(...,alias="Link")
 
 class Page(BaseModel):
     featured_deals: List[PageDeals] = Field(...,alias="FeaturedDeals")
-    
+

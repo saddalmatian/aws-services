@@ -16,4 +16,4 @@ def add_brand_like(user_id:str,brand_name:str):
     return brand_db.add_brand_like(user_id,brand_name)
 
 def add_brand_watch(user_id:str,brand_name:str):
-    return brand_db.add_brand_watch(user_id,brand_name)
+    return brand_db.add_brand_watch(user_id,brand_name) 

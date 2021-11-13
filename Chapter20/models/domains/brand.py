@@ -6,3 +6,4 @@ class Brand(BaseModel):
     brand_logo_url:str = Field(...,alias="BrandLogoUrl")
  
     
+ 

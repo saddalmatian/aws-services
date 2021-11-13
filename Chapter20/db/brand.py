@@ -1,7 +1,7 @@
 from .utils import table
 from models.schemas import brand as brand_schema
 
-
+ 
 
 def create_brand(brand:brand_schema.BrandIn):
     # try:

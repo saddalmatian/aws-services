@@ -4,7 +4,7 @@ from models.schemas import brand as brand_schema
 from services import brand as brand_service
 
 
-
+ 
 router = APIRouter(
     prefix="/brands",
     tags=["Brand"]

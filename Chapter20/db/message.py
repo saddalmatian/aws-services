@@ -27,5 +27,5 @@ def get_message(message_name:str):
             "PK":"USER#"+message_name,
             "SK":"USER#"+message_name
         }
-    )
+    ) 
     return response["Item"]

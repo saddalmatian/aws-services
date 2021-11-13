@@ -10,3 +10,4 @@ class MessageInDB(Message):
     message_id: str = Field(...,alias="Message")
     unread: bool = Field(...,alias="Unread")
 
+ 

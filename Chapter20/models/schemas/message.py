@@ -5,4 +5,4 @@ class MessageIn(message_domain.Message):
     pass
 
 class MessageResp(message_domain.MessageInDB):
-    pass
+    pass 

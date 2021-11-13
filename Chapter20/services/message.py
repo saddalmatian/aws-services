@@ -5,4 +5,4 @@ def create_message(user_name,message):
 
 
 def get_message(message):
-    return message_db.get_message(message)
+    return message_db.get_message(message) 

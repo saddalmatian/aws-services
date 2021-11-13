@@ -7,7 +7,7 @@ client = boto3.client(
 resource = boto3.resource(
     "dynamodb"
 )
-
+ 
 # table = resource.create_table(
 #     TableName='Chapter20',
 #     KeySchema=[

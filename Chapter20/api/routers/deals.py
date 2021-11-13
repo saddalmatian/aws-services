@@ -10,7 +10,7 @@ router = APIRouter(
     prefix="/deals",
     tags=["Deal"]
 )
-
+ 
 @router.get("/{deal_id}",response_model=deal_schema.DealResp)
 def get_deal(deal_id:str):
     return deal_service.get_deal(deal_id)

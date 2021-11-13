@@ -63,4 +63,4 @@ def fetch_deal_category(category:str):
         KeyConditionExpression=Key("GSI3PK").eq("CATEGORY#"+category+"#"+str(ksuid.datetime.replace(hour=0, minute=0).strftime("%Y-%m-%d %H:%M"))),
         Limit=10
     )
-    return response["Items"]
+    return response["Items"] 

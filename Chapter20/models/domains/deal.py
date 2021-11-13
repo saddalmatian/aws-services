@@ -14,3 +14,4 @@ class DealInDB(Deal):
     deal_id:str = Field(...,alias="DealID")
     created_at:str = Field(...,alias="CreatedAt")
 
+ 

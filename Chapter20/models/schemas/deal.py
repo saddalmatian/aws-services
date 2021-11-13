@@ -5,4 +5,4 @@ class DealIn(deal.Deal):
     pass
 
 class DealResp(deal.DealInDB):
-    pass
+    pass 

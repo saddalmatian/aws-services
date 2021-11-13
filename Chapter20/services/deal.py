@@ -16,4 +16,4 @@ def fetch_deal_brand(brand:str):
     return deal_db.fetch_deal_brand(brand)
 
 def fetch_deal_category(category:str):
-    return deal_db.fetch_deal_category(category)
+    return deal_db.fetch_deal_category(category) 

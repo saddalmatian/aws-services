@@ -9,3 +9,6 @@ class RepoResp(repo.RepoInDB):
 
 class IssueIn(repo.Issue):
     pass
+
+class PullReqIn(repo.PullReq):
+    pass

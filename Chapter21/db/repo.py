@@ -14,7 +14,9 @@ def create_repo(repo:repo_schema.RepoIn):
             "IssueAndPullCount":0,
             "CreatedAt":created_at,
             "GSI1PK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
-            "GSI1SK":"REPO#"+repo.repo_owner+"#"+repo.repo_name
+            "GSI1SK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
+            "GSI2PK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
+            "GSI2SK":"#REPO#"+repo.repo_name
         },
         ConditionExpression="attribute_not_exists(PK)"
     )
@@ -148,3 +150,17 @@ def fetch_open_status(repo_owner:str,repo_name:str):
         ScanIndexForward=False
     )
     return response["Items"]
+
+def create_fork(fork:repo_schema.ForkIn):
+    response =  table.put_item(
+        Item={
+            "PK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
+            "SK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
+            "RepoOwner":fork.repo_owner,
+            "RepoName":fork.repo_name,
+            "GSI2PK":"REPO#"+fork.repo_original_owner+"#"+fork.repo_name,
+            "GSI2SK":"FORK#"+fork.repo_owner
+        },
+        ConditionExpression="attribute_not_exists(PK)",
+    )
+    return response

@@ -12,3 +12,6 @@ class IssueIn(repo.Issue):
 
 class PullReqIn(repo.PullReq):
     pass
+
+class ForkIn(repo.Fork):
+    pass

@@ -20,7 +20,7 @@ def fetch_repo_issues(repo_owner:str,repo_name:str):
 def get_repo_issue(repo_owner:str,repo_name:str,issue_number:int):
     return repo_db.get_repo_issue(repo_owner,repo_name,issue_number)
 
-def fetch_repo_pullreqs(repo_pwmer:str,repo_name:str):
+def fetch_repo_pullreqs(repo_owner:str,repo_name:str):
     return repo_db.fetch_repo_pullreqs(repo_owner,repo_name)
 
 def get_repo_pullreq(repo_owner:str,repo_name:str,pullreq_number:int):
@@ -28,3 +28,6 @@ def get_repo_pullreq(repo_owner:str,repo_name:str,pullreq_number:int):
 
 def fetch_open_status(repo_owner:str,repo_name:str):
     return repo_db.fetch_open_status(repo_owner,repo_name)
+
+def create_fork(fork:repo_schema.ForkIn):
+    return repo_db.create_fork(fork)

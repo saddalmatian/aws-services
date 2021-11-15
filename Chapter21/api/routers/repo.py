@@ -42,3 +42,7 @@ def get_repo_pullreq(repo_owner:str,repo_name:str,pullreq_number:int):
 @router.get("/open-status")
 def fetch_open_status(repo_owner:str,repo_name:str):
     return repo_service.fetch_open_status(repo_owner,repo_name)
+
+@router.post("/fork")
+def create_fork(fork:repo_schema.ForkIn):
+    return repo_service.create_fork(fork) 

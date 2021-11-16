@@ -12,6 +12,8 @@ def create_repo(repo:repo_schema.RepoIn):
             "RepoOwner":repo.repo_owner,
             "RepoName":repo.repo_name,
             "IssueAndPullCount":0,
+            "StarCount":0,
+            "ForkCount":0,
             "CreatedAt":created_at,
             "GSI1PK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
             "GSI1SK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
@@ -152,6 +154,16 @@ def fetch_open_status(repo_owner:str,repo_name:str):
     return response["Items"]
 
 def create_fork(fork:repo_schema.ForkIn):
+    table.update_item(
+        Key={
+            "PK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
+            "SK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
+        },
+        UpdateExpression="SET ForkCount = ForkCount + :fc",
+        ExpressionAttributeValues={
+            ":fc":1
+        }
+    )
     response =  table.put_item(
         Item={
             "PK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
@@ -164,3 +176,40 @@ def create_fork(fork:repo_schema.ForkIn):
         ConditionExpression="attribute_not_exists(PK)",
     )
     return response
+
+def fetch_forks(repo_owner:str,repo_name:str):
+    response = table.query(
+        IndexName="GSI2",
+        KeyConditionExpression=Key("GSI2PK").eq("REPO#"+repo_owner+"#"+repo_name) & Key("GSI2SK").begins_with("FORK#")
+    )
+    return response["Items"]
+
+def create_star(star:repo_schema.StarIn):
+    table.update_item(
+        Key={
+            "PK":"REPO#"+star.repo_owner+"#"+star.repo_name,
+            "SK":"REPO#"+star.repo_owner+"#"+star.repo_name,
+        },
+        UpdateExpression="SET StarCount = StarCount + :sc",
+        ExpressionAttributeValues={
+            ":sc":1
+        }
+    )
+    
+    response =  table.put_item(
+        Item={
+            "PK":"REPO#"+star.repo.repo_owner+"#"+star.repo.repo_name,
+            "SK":"Star#"+star.starring_user,
+            "StarringUser":star.starring_user
+        },
+        ConditionExpression="attribute_not_exists(PK)",
+    )
+    return response
+
+def fetch_stars(repo_owner:str,repo_name:str):
+    response = table.query(
+        KeyConditionExpression=Key("PK").eq("REPO#"+repo_owner+"#"+repo_name) & Key("SK").gt("REPO#"),
+        ProjectionExpression="RepoOwner,RepoName,IssueAndPullCount,CreatedAt,StarringUser"
+    )
+    
+    return response["Items"]

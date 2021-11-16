@@ -27,7 +27,13 @@ class PullReqInDB(PullReq):
     pullreq_number:int = Field(...,alias="PullRequestNumber")
     created_at:datetime = Field(...,alias="CreatedAt")
 
-class Fork(BaseModel):
-    repo_name:str=Field(...,alias="RepoName")
+class ForkInDB(BaseModel):
     repo_owner:str=Field(...,alias="RepoOwner")
+    repo_name:str=Field(...,alias="RepoName")  
+
+class ForkIn(ForkInDB):
     repo_original_owner:str=Field(...,alias="RepoOriginalOwner")
+
+class Star(BaseModel):
+    repo: Repo = Field(...,alias="Repo")
+    starring_user:str = Field(...,alias="StarringUser")

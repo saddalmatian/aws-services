@@ -1,4 +1,5 @@
 from fastapi import APIRouter
+from typing import List
 from models.schemas import repo as repo_schema
 from services import repo as repo_service
 
@@ -46,3 +47,16 @@ def fetch_open_status(repo_owner:str,repo_name:str):
 @router.post("/fork")
 def create_fork(fork:repo_schema.ForkIn):
     return repo_service.create_fork(fork) 
+
+@router.get("/fork",response_model=List[repo_schema.ForkResp])
+def fetch_forks(repo_owner:str,repo_name:str): 
+    return repo_service.fetch_forks(repo_owner,repo_name)
+
+@router.post("/star")
+def create_star(star:repo_schema.StarIn):
+    return repo_service.create_star(star)  
+
+@router.get("/star")
+def fetch_stars(repo_owner:str,repo_name:str): 
+    return repo_service.fetch_stars(repo_owner,repo_name)
+

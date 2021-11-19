@@ -2,7 +2,6 @@ from models.schemas import comment as comment_schema
 from db.utils import table
 from boto3.dynamodb.conditions import Key
 from ksuid import Ksuid
-import json
 
 def create_issue_comment(comment:comment_schema.IssueCommentIn):
     ksuid = Ksuid()

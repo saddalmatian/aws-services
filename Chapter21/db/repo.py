@@ -18,7 +18,9 @@ def create_repo(repo:repo_schema.RepoIn):
             "GSI1PK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
             "GSI1SK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
             "GSI2PK":"REPO#"+repo.repo_owner+"#"+repo.repo_name,
-            "GSI2SK":"#REPO#"+repo.repo_name
+            "GSI2SK":"#REPO#"+repo.repo_name,
+            "GSI3PK":"ACCOUNT#"+repo.repo_owner,
+            "GSI3SK":"#"+created_at
         },
         ConditionExpression="attribute_not_exists(PK)"
     )

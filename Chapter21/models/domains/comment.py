@@ -1,7 +1,10 @@
 from pydantic import BaseModel
+from typing import Dict, Set
 from datetime import datetime
 from models.domains import repo as repo_domains
+from models.domains import reaction as reaction_domains
 from pydantic.fields import Field
+
 
 class IssueComment(BaseModel):
     commenter:str = Field(...,alias="Commenter")
@@ -15,6 +18,7 @@ class IssueCommentInDB(BaseModel):
     issue_number:int = Field(...,alias="IssueNumber")
     comment_id:str = Field(...,alias="CommentID")
     created_at:datetime = Field(...,alias="CreatedAt")
+    reaction:dict = Field(...,alias="Reaction")
 
 class PullReqComment(BaseModel):
     commenter:str = Field(...,alias="Commenter")
@@ -28,3 +32,4 @@ class PullReqCommentInDB(BaseModel):
     pullreq_number:int = Field(...,alias="PullReqNumber")
     comment_id:str = Field(...,alias="CommentID")
     created_at:datetime = Field(...,alias="CreatedAt")
+    reaction:dict = Field(...,alias="Reaction")

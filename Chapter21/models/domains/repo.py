@@ -1,3 +1,4 @@
+from typing import Set
 from pydantic import BaseModel
 from datetime import datetime
 from pydantic.fields import Field
@@ -6,7 +7,6 @@ from pydantic.fields import Field
 class Repo(BaseModel):
     repo_owner: str = Field(...,alias="RepoOwner")
     repo_name: str = Field(...,alias="RepoName")
-    
 
 class RepoInDB(Repo):
     created_at:datetime = Field(...,alias="CreatedAt")
@@ -18,6 +18,7 @@ class Issue(BaseModel):
 class IssueInDB(Issue):
     created_at:datetime = Field(...,alias="CreatedAt")
     issue_number:int = Field(...,alias="IssueNumber")
+    reaction:Set = Field(...,alias="Reaction")
     status:str = Field(...,alias="Status")
 
 class PullReq(BaseModel):
@@ -26,6 +27,7 @@ class PullReq(BaseModel):
 class PullReqInDB(PullReq):
     pullreq_number:int = Field(...,alias="PullRequestNumber")
     created_at:datetime = Field(...,alias="CreatedAt")
+    reaction:Set = Field(...,alias="Reaction")
 
 class ForkInDB(BaseModel):
     repo_owner:str=Field(...,alias="RepoOwner")

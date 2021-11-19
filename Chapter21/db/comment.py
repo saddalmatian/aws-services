@@ -1,8 +1,8 @@
 from models.schemas import comment as comment_schema
 from db.utils import table
-from datetime import datetime
 from boto3.dynamodb.conditions import Key
 from ksuid import Ksuid
+import json
 
 def create_issue_comment(comment:comment_schema.IssueCommentIn):
     ksuid = Ksuid()
@@ -14,7 +14,12 @@ def create_issue_comment(comment:comment_schema.IssueCommentIn):
             "IssueNumber":comment.issue_number,
             "CommentID":str(ksuid),
             "Commenter":comment.commenter,
-            "CommentContent":comment.content
+            "CommentContent":comment.content,
+            "Reaction":{
+                "Heart":0,
+                "Like":0,
+                "Dislike":0
+            }
         },
         ConditionExpression="attribute_not_exists(PK)"
     )
@@ -24,6 +29,7 @@ def fetch_issue_comments(repo_owner:str,repo_name:str,issue_number:int):
     response = table.query(
         KeyConditionExpression=Key("PK").eq("ISSUECOMMENT#"+repo_owner+"#"+repo_name+"#"+str(issue_number))
     )
+    print(response["Items"])
     return response["Items"]
 
 def create_pullreq_comment(comment:comment_schema.PullReqCommentIn):
@@ -36,7 +42,12 @@ def create_pullreq_comment(comment:comment_schema.PullReqCommentIn):
             "PullReqNumber":comment.pullreq_number,
             "CommentID":str(ksuid),
             "Commenter":comment.commenter,
-            "CommentContent":comment.content
+            "CommentContent":comment.content,
+            "Reaction":{
+                "Heart":0,
+                "Like":0,
+                "Dislike":0
+            }
         },
         ConditionExpression="attribute_not_exists(PK)"
     )

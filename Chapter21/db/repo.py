@@ -29,7 +29,7 @@ def create_repo_issue(issue:repo_schema.IssueIn):
     created_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     resp = table.update_item(
         Key={
-             "PK":"REPO#"+issue.repo.repo_owner+"#"+issue.repo.repo_name,
+            "PK":"REPO#"+issue.repo.repo_owner+"#"+issue.repo.repo_name,
             "SK":"REPO#"+issue.repo.repo_owner+"#"+issue.repo.repo_name,
         },
         UpdateExpression="SET IssueAndPullCount = IssueAndPullCount + :ic",
@@ -49,6 +49,11 @@ def create_repo_issue(issue:repo_schema.IssueIn):
             "CreatedAt":created_at,
             "IssueNumber":resp["Attributes"]["IssueAndPullCount"],
             "Status":"Open",
+            "Reaction":{
+                "Heart":0,
+                "Like":0,
+                "Dislike":0
+            }
         },
         ConditionExpression="attribute_not_exists(PK)"
     )
@@ -78,6 +83,11 @@ def create_repo_pullreq(pullreq:repo_schema.PullReqIn):
             "RepoOwner":pullreq.repo.repo_owner,
             "CreatedAt":created_at,
             "PullRequestNumber":resp["Attributes"]["IssueAndPullCount"],
+            "Reaction":{
+                "Heart":0,
+                "Like":0,
+                "Dislike":0
+            },
             "GSI1PK":"REPO#"+pullreq.repo.repo_owner+"#"+pullreq.repo.repo_name,
             "GSI1SK":"PR#"+zero_padded_pullreq
         },
@@ -120,7 +130,7 @@ def get_repo_issue(repo_owner:str,repo_name:str,issue_number:int):
             "PK":"REPO#"+repo_owner+"#"+repo_name,
             "SK":"ISSUE#"+zero_padded_issue
         },
-        ProjectionExpression="RepoOwner,IssueNumber,RepoName,CreatedAt,#stt",
+        ProjectionExpression="RepoOwner,IssueNumber,RepoName,CreatedAt,#stt,Reaction",
         ExpressionAttributeNames={
             "#stt":"Status"
         }
@@ -136,7 +146,6 @@ def get_repo_pullreq(repo_owner:str,repo_name:str,pullreq_number:int):
         },
         ProjectionExpression="RepoOwner,PullRequestNumber,RepoName,CreatedAt",
     )
-    print("PR#"+repo_owner+"#"+repo_name+zero_padded_pullreq)
     return response["Item"]
 
 def fetch_open_status(repo_owner:str,repo_name:str):
@@ -156,8 +165,8 @@ def fetch_open_status(repo_owner:str,repo_name:str):
 def create_fork(fork:repo_schema.ForkIn):
     table.update_item(
         Key={
-            "PK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
-            "SK":"REPO#"+fork.repo_owner+"#"+fork.repo_name,
+            "PK":"REPO#"+fork.repo_original_owner+"#"+fork.repo_name,
+            "SK":"REPO#"+fork.repo_original_owner+"#"+fork.repo_name,
         },
         UpdateExpression="SET ForkCount = ForkCount + :fc",
         ExpressionAttributeValues={
@@ -187,8 +196,8 @@ def fetch_forks(repo_owner:str,repo_name:str):
 def create_star(star:repo_schema.StarIn):
     table.update_item(
         Key={
-            "PK":"REPO#"+star.repo_owner+"#"+star.repo_name,
-            "SK":"REPO#"+star.repo_owner+"#"+star.repo_name,
+            "PK":"REPO#"+star.repo.repo_owner+"#"+star.repo.repo_name,
+            "SK":"REPO#"+star.repo.repo_owner+"#"+star.repo.repo_name,
         },
         UpdateExpression="SET StarCount = StarCount + :sc",
         ExpressionAttributeValues={

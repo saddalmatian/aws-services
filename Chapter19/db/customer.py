@@ -6,7 +6,6 @@ def get_customer(id:str):
     response = utils.table.query(
         KeyConditionExpression=Key("PK").eq("CUSTOMER#"+id) & Key("SK").eq("CUSTOMER#"+id)
     )
-    print(response)
     return response["Items"][0]
 
 def get_customer_order(customer_id:str):

@@ -17,7 +17,6 @@ def get_customer_order(customer_id:str):
     )
     return response["Items"]
 
-
 def create_customer(customer_info):
     try:
         utils.table.put_item(

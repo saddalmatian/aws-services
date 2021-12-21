@@ -8,8 +8,6 @@ router = APIRouter(
     prefix="/orders",
     tags=["Order"]
 )
-
-
 @router.post("/")
 def create_order(
                 order:order_schema.OrderIn,

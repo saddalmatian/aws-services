@@ -18,8 +18,12 @@ resource = boto3.resource('sqs')
 # )
 
 #Using an existing queue
-queue = resource.get_queue_by_name(QueueName='queue.fifo')
+# queue = resource.get_queue_by_name(QueueName='testqueue.fifo')
 # print(queue)
+
+#Delete queue
+# response = queue.delete()
+# print_json(response)
 
 #List all queue
 # for queue in resource.queues.all():

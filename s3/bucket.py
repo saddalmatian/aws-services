@@ -1,12 +1,14 @@
 import boto3
 import json
+import os
 
 
 client = boto3.client('s3')
 resource = boto3.resource('s3')
-bucket = resource.Bucket('gianghoatran')
+bucket = resource.Bucket('nembucket')
 
-def print_json(response :str):
+
+def print_json(response: str):
     print(json.dumps(response, indent=4, sort_keys=True, default=str))
 
 # Create a bucket
@@ -18,8 +20,13 @@ def print_json(response :str):
 # print_json(response)
 
 
-# Upload an object 
+# Upload an object
 # bucket.upload_file('text.txt', 'hello.txt')
+
+
+# Download an object
+# resource.meta.client.download_file('nembucket', 'manage.py', 'manage.py')
+print(os.listdir('env'))
 
 
 # List objects

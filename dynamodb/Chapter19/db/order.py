@@ -34,7 +34,7 @@ def create_order(order_info,customer_id,order_list):
                     "GSI2PK":"ORDER#"+str(ksuid),
                     "GSI2SK":"ORDER#"+str(ksuid)+"ITEM#"+item.item_id
                 }
-            )   
+            )    
 
     response = utils.table.put_item(
         Item={
